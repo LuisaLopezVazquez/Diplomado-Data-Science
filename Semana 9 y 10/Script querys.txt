@@ -1,0 +1,37 @@
+--Obtener los clientes y su relación de compras utilizando un INNER JOIN
+SELECT id_venta,nombre,apellido_paterno,apellido_materno,monto,total_productos,forma_pago FROM clientes
+INNER JOIN ventas ON clientes.id_cliente=ventas.id_cliente;
+
+-- Obtner el total de clientes y su relacion de compras con un LEFT JOIN
+SELECT id_venta,nombre,apellido_paterno,apellido_materno,monto,total_productos,forma_pago FROM clientes
+LEFT JOIN ventas ON clientes.id_cliente=ventas.id_cliente;
+
+-- Obtner el total de clientes y su relacion de compras con un LEFT JOIN
+SELECT id_venta,nombre,apellido_paterno,apellido_materno,monto,total_productos,forma_pago FROM clientes
+RIGHT JOIN ventas ON clientes.id_cliente=ventas.id_cliente;
+
+-- Obtener el total de compras por clientes
+SELECT id_venta,nombre,apellido_paterno,apellido_materno,monto,total_productos,forma_pago FROM clientes
+INNER JOIN ventas ON clientes.id_cliente=ventas.id_cliente GROUP BY ventas.id_cliente;
+
+-- Obtener el producto mas vendido
+SELECT nombre,sum(ventas.total_productos) as total_productos FROM ventas 
+INNER JOIN productos ON ventas.id_producto=productos.id_producto
+GROUP BY ventas.id_producto;
+
+-- Obtener el producto mas vendido
+SELECT nombre,sum(ventas.total_productos) as total_prod FROM ventas 
+INNER JOIN productos ON ventas.id_producto=productos.id_producto
+GROUP BY ventas.id_producto HAVING total_prod>10;
+
+
+--Obtener el producto mas vendido
+select nombre, SUM(ventas.id_producto) as total_producto from ventas 
+INNER JOIN productos  ON ventas.id_producto=productos.id_producto
+GROUP BY  ventas.id_producto HAVING total_producto>20;
+
+-- Usar distinct en consultas
+SELECT DISTINCT(colonia) FROM codigo_postal;
+
+-- usar LIMIT en consultas
+SELECT * FROM productos LIMIT 4;
